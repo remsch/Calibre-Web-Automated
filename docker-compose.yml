@@ -15,4 +15,9 @@ services:
       #- /path/to/your/gmail/credentials.json:/app/calibre-web/gmail.json #Optional
     ports:
       - 8084:8083 # Change the first number to change the port you want to access the Web UI, not the second
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.calibre.rule=Host(`calibre.awesomearmadillo.com`)"
+      - "traefik.http.routers.calibre.entrypoints=web"
+      - "traefik.http.services.calibre.loadbalancer.server.port=8084"
     restart: unless-stopped
